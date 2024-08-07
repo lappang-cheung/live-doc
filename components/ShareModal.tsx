@@ -16,6 +16,8 @@ import {Button} from "@/components/ui/button";
 import Image from "next/image";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
+import UserTypeSelector from "@/components/UserTypeSelector";
+import Collaborator from "@/components/Collaborator";
 
 const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: ShareDocumentDialogProps) => {
   const user = useSelf();
@@ -67,11 +69,35 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
               onChange={(e) => setEmail(e.target.value)}
               className="share-input"
             />
+            <UserTypeSelector
+              userType={userType}
+              setUserType={setUserType}
+            />
           </div>
+          <Button type="submit" onClick={shareDocumentHandler}
+                  className="gradient-blue flex h-full gap-1 px-5"
+                  disabled={loading}>
+            {loading ? 'Sending...' : 'Invite'}
+          </Button>
+        </div>
+
+        <div className="my-2 space-y-2">
+          <ul className="flex flex-col">
+            {collaborators.map((collaborator) => (
+              <Collaborator
+                key={collaborator.id}
+                roomId={roomId}
+                creatorId={creatorId}
+                email={collaborator.email}
+                collaborator={collaborator}
+                user={user.info}
+              />
+            ))}
+          </ul>
         </div>
       </DialogContent>
     </Dialog>
-  );
+);
 };
 
 export default ShareModal;
