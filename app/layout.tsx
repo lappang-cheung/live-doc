@@ -15,7 +15,7 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: 'LiveDocs',
+  title: 'CollabDocs',
   description: 'Your go-to collaborative editor'
 }
 
